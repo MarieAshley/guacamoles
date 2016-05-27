@@ -1,24 +1,18 @@
 class Simon(object):
-    def __init__(self):
+    def __init__(self, name):
         "Initialize Simon"
+        self.name = name
         self.age = 11
         self.curious = True
         self.inventory = []
-
-# pockets, backpack, study
+        
 class Inventory(object):
     
     def __init__(self, room):
-        self.room = room
+        self.room = room # i.e. pocket
         
 class Pinecone(Inventory):
-    pass
-
-class Compass(Inventory):
-    pass
-
-class Book(Inventory):
-    pass
+    weight = 0 # small
 
 def search_inventory(human):
     rooms = {}
