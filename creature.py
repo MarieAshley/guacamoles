@@ -10,9 +10,6 @@ class Inventory(object):
     
     def __init__(self, room):
         self.room = room # i.e. pocket
-        
-class Pinecone(Inventory):
-    weight = 0 # small
 
 def search_inventory(human):
     rooms = {}
@@ -26,3 +23,18 @@ def counter(human):
         types[type(i).__name__] = types.get(type(i).__name__, 0) + 1
     for i in types.keys():
         print("{0}: {1}".format(i, types[i]))
+
+def take(human, thing, room = None):
+    if room:
+        thing.room = room
+    human.inventory.append(thing)
+    print("You take the {0}.".format(thing.kind))
+
+def uin(ch, human = None, room = None):
+    w = True
+    while w:
+        w = ch.actions(input('action: '))
+        if isinstance(w, Inventory):
+            take(human, w, room)
+            break
+    
