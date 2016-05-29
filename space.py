@@ -14,7 +14,11 @@ class Space(object):
             for y in range(1, self.rangey+1):
                 self.grid[(x, y)] = None
 
-    def actions(self, action, thing = None):       
+        self.thing = None
+
+    def actions(self, action, human, room = None):
+        self.human = human
+        self.room = None
         action = action.split(" ")
         for i in action:
             if i in self.action:
@@ -37,11 +41,16 @@ class Space(object):
                         return True
 
                 if i == "take":
-                    if thing == None:
+                    if self.thing == None:
                         print('Simon says: "There is nothing to take here."')
                         return True
                     else:
-                        return thing
+                        self.take()
+                        return False
+
+                if i == "leave":
+                    print('\nYou leave it be.')
+                    return False
                         
             else: print('Simon says: "I do not know what you mean by "{0}"".'.format(i))
             
@@ -50,6 +59,9 @@ class Space(object):
             if i in self.directions:
                 if i == "north":
                     self.current = self.current[0], self.current[1] - 1
+                    return False
+                if i == "south":
+                    self.current = self.current[0], self.current[1] + 1
                     return False
             else:
                 print('Simon says: "Try another direction."')
@@ -67,12 +79,32 @@ class Space(object):
             else:
                 #One objects per space
                 thing = current.things[0]
-                print("There is a {0} here!".format(thing.kind))
-                a = self.actions(input("Simon here: You going to take or leave that?\naction: "), thing = thing)
-                return a
-        else:
-            print("There is no {0} to investigate here.".format(space[0]))
-            return True
+                print("There is a {0} here!".format(thing.longkind))
+                tl = input("Simon here: You going to take or leave that?\naction: ")
+
+                if tl == 'take':
+                    self.thing = thing
+                    a = self.actions(tl, self.human)
+                    return a
+                
+                self.actions(tl, self.human)
+                return False
+            
+        for i in self.human.inventory:
+            if space[0] == i.kind:
+                print("\n" + i.description)
+                return False
+            
+        print("There is no {0} to investigate here.".format(space[0]))
+        return True
+
+    def take(self):
+        if self.room:
+            self.thing.room = room
+        self.human.inventory.append(self.thing)
+        print("\nYou take the {0}.".format(self.thing.kind))
+        self.grid[(self.current[0], self.current[1])].things = []
+        self.thing = None
 
     def describe_space(self):
         
@@ -96,9 +128,9 @@ class Space(object):
         s = ""
         for i in q.keys():
             if q[i] != None:
-                s += "There is a {0} {1} to the {2}.".format(q[i].adjective, q[i].kind, i)
+                s += "\nThere is a {0} {1} to the {2}.".format(q[i].adjective, q[i].kind, i)
 
-        print("{0}\n".format(s))
+        print("{0}".format(s))
 
         time.sleep(1)
                 
@@ -108,28 +140,3 @@ class Space(object):
         time.sleep(1)
         if self.grid[(x, y)].description != None:
             print(self.grid[(x, y)].description + "\n")
-        
-
-class Square(object):
-
-    def __init__(self, x, y):
-        self.location = x, y
-        self.kind = None
-        self.preposition = None
-        self.adjective = None
-        self.description = None
-        self.things = []
-
-class Hill(Square):
-
-    def __init__(self, x, y):
-        Square.__init__(self, x, y)
-        self.kind = "hill"
-        self.preposition = "on"
-
-class Tree(Square):
-
-    def __init__(self, x, y):
-        Square.__init__(self, x, y)
-        self.kind = "tree"
-        self.preposition = "under"
