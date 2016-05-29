@@ -15,12 +15,6 @@ class Inventory(object):
         self.description = None
         self.name = None
 
-def search_inventory(human):
-    rooms = {}
-    for i in human:
-        rooms[i.room] = rooms.get(i.room, []) + [i]
-    return rooms
-
 def counter(human):
     types = {}
     for i in human:
