@@ -15,10 +15,9 @@ class Space(object):
                 self.grid[(x, y)] = None
 
         self.thing = None
+        self.human = None
 
-    def actions(self, action, human, room = None):
-        self.human = human
-        self.room = None
+    def actions(self, action):
         action = action.split(" ")
         for i in action:
             if i in self.action:
@@ -123,25 +122,29 @@ class Space(object):
                 return True
 
             else:
-                #One objects per space
+                #One object per space
                 thing = current.things[0]
                 print("There is a {0} here!".format(thing.longkind))
                 tl = input('Simon says: "You going to take or leave that?"\naction: ')
 
                 if tl == 'take':
                     self.thing = thing
-                    self.actions(tl, self.human)
+                    self.actions(tl)
                     return True
                 
-                self.actions(tl, self.human)
+                self.actions(tl)
 
         if space[0] == 'inventory':
             self.search_inventory()
             return True
             
-        for i in self.human.inventory:
+        for n, i in enumerate(self.human.inventory):
             if space[0] == i.kind:
                 print("\n" + i.description)
+                if i.trigger:
+                    self.human.needed_items -= i.subtract_from_needed_items
+                    print(i.desc2)
+                    self.human.inventory[n].trigger = False
                 return True
             
         print('Simon says: "There is no {0} to investigate here."'.format(space[0]))
@@ -157,8 +160,6 @@ class Space(object):
                 print(i2.kind)
 
     def take(self):
-        if self.room:
-            self.thing.room = room
         self.human.inventory.append(self.thing)
         print("You take the {0}.".format(self.thing.kind))
         self.grid[(self.current[0], self.current[1])].things = []
