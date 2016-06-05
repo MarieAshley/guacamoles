@@ -143,7 +143,9 @@ class Space(object):
                 print("\n" + i.description)
                 if i.trigger:
                     self.human.needed_items -= i.subtract_from_needed_items
-                    print(i.desc2)
+                    input('Simon says: "When finished reading, press Enter."\n')
+                    for i2 in i.desc2:
+                        input(i2 + "\n")
                     self.human.inventory[n].trigger = False
                 return True
             
@@ -213,3 +215,9 @@ class Space(object):
         time.sleep(1)
         if self.grid[(x, y)].description != None:
             print(self.grid[(x, y)].description)
+
+        if self.grid[(x,y)].event != None:
+            input('Simon says: "Press enter when you have finished reading."\n')
+            for i in self.grid[(x,y)].event:
+                input(i + "\n")
+            self.grid[(x,y)].event = None
