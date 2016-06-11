@@ -78,7 +78,7 @@ print('\n? says: "My name..."')
 time.sleep(1)
 print('? says: "my name is Simon!"')
 time.sleep(1)
-human = Simon(raw_input('Simon says: "What do you call yourself?"\nname: '))
+human = Simon(str(input('Simon says: "What do you call yourself?"\nname: ')))
 human.needed_items = 3
 ch1.human = human
 print('Simon says: "Hello, {0}! If you are ever confused, \
@@ -128,11 +128,11 @@ ch1ending = ['The sun starts to set, and casts everything in a soft orange light
 while True:
     w = True
     while w:
-        w = ch1.actions(raw_input('action: '))
+        w = ch1.actions(str(input('action: ')))
     ch1.describe_space(special_squares, types_of_squares)
     if ch1.human.needed_items == 0:
-        raw_input('Simon says: "Press enter when you have finished reading."\n')
+        str(input('Simon says: "Press enter when you have finished reading."\n'))
         for i in ch1ending:
-            raw_input(i + "\n")
+            str(input(i + "\n"))
         print("\nThe End")
         break

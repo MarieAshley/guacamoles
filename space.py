@@ -127,7 +127,7 @@ class Space(object):
                 #One object per space
                 thing = current.things[0]
                 print("There is a {0} here!".format(thing.longkind))
-                tl = raw_input('Simon says: "You going to take or leave that?"\naction: ')
+                tl = str(input('Simon says: "You going to take or leave that?"\naction: '))
 
                 if tl == 'take':
                     self.thing = thing
@@ -148,9 +148,9 @@ class Space(object):
                 print("\n" + i.description)
                 if i.trigger:
                     self.human.needed_items -= i.subtract_from_needed_items
-                    raw_input('Simon says: "When finished reading, press Enter."\n')
+                    str(input('Simon says: "When finished reading, press Enter."\n'))
                     for i2 in i.desc2:
-                        raw_input(i2 + "\n")
+                        str(input(i2 + "\n"))
                     self.human.inventory[n].trigger = False
                 return True
 
@@ -222,7 +222,7 @@ class Space(object):
             print(self.grid[(x, y)].description)
 
         if self.grid[(x,y)].event != None:
-            raw_input('Simon says: "Press enter when you have finished reading."\n')
+            str(input('Simon says: "Press enter when you have finished reading."\n'))
             for i in self.grid[(x,y)].event:
-                raw_input(i + "\n")
+                str(input(i + "\n"))
             self.grid[(x,y)].event = None
