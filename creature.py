@@ -57,7 +57,8 @@ They look more like a pair of dress shoes, but with two spikes near the toes and
         self.trigger = True
 
         self.desc2 = ['After placing the shoes on your feet, you hop up and sprint. You can feel the wind in your hair, and howling in your ears. Your legs move as fast as they can. You leap into the air, to see how far you can jump. You, challenging physics, have jumped too high. You close your eyes, slightly afraid at the landing to come.', 
-'It never does. But you hear cheering all around you. Are they cheering for you?',
+'It never does.',
+'You hear cheering all around you. Are they cheering for you?',
 '“GO LITTLE, GO!”',
 'You open your eyes. All around you, you see runners. They are wearing shoes that seem a hundred years more advanced than the ones on your feet.', 
 'You look out. You’re a spectator in a cross country race! A nearby sign shows that you are at Ventura County Championships. There are two girls running, the girl in first has blond hair and pig tails. The girl in second, also has blond hair and seems graceful, determined, and strong. She is closing the gap, but the gap is still about 50 meters.', 

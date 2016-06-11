@@ -52,7 +52,7 @@ class Space(object):
                     return True
 
                 if i == 'actions':
-                    print("The actions you can take are: {0}.".format(", ".join(self.action)))
+                    print("\nThe actions you can take are: {0} or {1}.\n".format(", ".join(self.action[:-1]), self.action[-1]))
                     return True
 
                 if i == 'tips':
@@ -61,8 +61,10 @@ class Space(object):
                      "We do not need to specify the item we wish take. Just type, 'take'.",
                      "Walk in a direction. For example, type 'walk ne' or 'walk northeast'"]
 
+                    print("\nTips:")
+
                     for i in L:
-                        print(i)
+                        print(i + "\n")
                     return True
                         
             else:
@@ -135,7 +137,10 @@ class Space(object):
                 self.actions(tl)
 
         if space[0] == 'inventory':
+
+            print("\nInventory:")
             self.search_inventory()
+            print("")
             return True
             
         for n, i in enumerate(self.human.inventory):
