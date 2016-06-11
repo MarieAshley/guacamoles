@@ -1,7 +1,7 @@
 import time, random
 class Space(object):
 
-    def __init__(self, x, y, rangex, rangey):     
+    def __init__(self, x, y, rangex, rangey):
         self.current = x, y
         self.action = ['walk', 'investigate', 'take', 'leave', 'actions', 'tips']
         self.directions = {'north', 'east', 'south', 'west',
@@ -56,7 +56,7 @@ class Space(object):
                     return True
 
                 if i == 'tips':
-                    
+
                     L = ["We can investigate places or things, but that place or thing needs to be specified. For example, 'investigate tree' or 'investigate inventory'.",
                      "We do not need to specify the item we wish take. Just type, 'take'.",
                      "Walk in a direction. For example, type 'walk ne' or 'walk northeast'"]
@@ -66,11 +66,11 @@ class Space(object):
                     for i in L:
                         print(i + "\n")
                     return True
-                        
+
             else:
                 print('Simon says: "I do not know what you mean by "{0}"".'.format(i))
                 return True
-            
+
     def walk(self, directions):
         for i in directions:
             if i in self.directions:
@@ -98,7 +98,7 @@ class Space(object):
                 elif i == "east" or i == "e":
                     self.current = self.current[0] + 1, self.current[1]
                     return False
-                elif i == "northwest" or i == "nw":     
+                elif i == "northwest" or i == "nw":
                     self.current = self.current[0] - 1, self.current[1] - 1
                     return False
                 elif i == "northeast" or i == "ne":
@@ -127,13 +127,13 @@ class Space(object):
                 #One object per space
                 thing = current.things[0]
                 print("There is a {0} here!".format(thing.longkind))
-                tl = input('Simon says: "You going to take or leave that?"\naction: ')
+                tl = raw_input('Simon says: "You going to take or leave that?"\naction: ')
 
                 if tl == 'take':
                     self.thing = thing
                     self.actions(tl)
                     return True
-                
+
                 self.actions(tl)
 
         if space[0] == 'inventory':
@@ -142,18 +142,18 @@ class Space(object):
             self.search_inventory()
             print("")
             return True
-            
+
         for n, i in enumerate(self.human.inventory):
             if space[0] == i.kind:
                 print("\n" + i.description)
                 if i.trigger:
                     self.human.needed_items -= i.subtract_from_needed_items
-                    input('Simon says: "When finished reading, press Enter."\n')
+                    raw_input('Simon says: "When finished reading, press Enter."\n')
                     for i2 in i.desc2:
-                        input(i2 + "\n")
+                        raw_input(i2 + "\n")
                     self.human.inventory[n].trigger = False
                 return True
-            
+
         print('Simon says: "There is no {0} to investigate here."'.format(space[0]))
         return True
 
@@ -173,7 +173,7 @@ class Space(object):
         self.thing = None
 
     def describe_space(self, special_squares, types_of_squares):
-        
+
         x = self.current[0]
         y = self.current[1]
 
@@ -195,7 +195,7 @@ class Space(object):
                 else:
                     unremarkable.add(self.grid[(i[1][0], i[1][1])])
             except KeyError:
-               q[i[0]] = None 
+               q[i[0]] = None
 
         unremarkable = list(unremarkable)
         s = "\nYou see "
@@ -213,7 +213,7 @@ class Space(object):
             print(s2)
 
         time.sleep(1)
-                
+
         print("\nYou are standing {0} a {1} {2}.".format(self.grid[(x, y)].preposition,
                                                          self.grid[(x, y)].adjective,
                                                          self.grid[(x, y)].kind))
@@ -222,7 +222,7 @@ class Space(object):
             print(self.grid[(x, y)].description)
 
         if self.grid[(x,y)].event != None:
-            input('Simon says: "Press enter when you have finished reading."\n')
+            raw_input('Simon says: "Press enter when you have finished reading."\n')
             for i in self.grid[(x,y)].event:
-                input(i + "\n")
+                raw_input(i + "\n")
             self.grid[(x,y)].event = None
