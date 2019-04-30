@@ -4,7 +4,7 @@ for Simon
 ## how to play
 Run ch1.py
 
-You start as a young child, full of enthusiasm and curiosity. As you investigate your world, you are transported into some else's memories. What could all of this mean?
+You start as a young child, full of enthusiasm and curiosity. As you investigate your world, you are transported into a series of memories. What could all of this mean?
 
 To win, find and investigate what’s hidden in a flowery plain, a city, a dark forest, and under a willow tree. Return to the city when all items are found and investigated.
 
